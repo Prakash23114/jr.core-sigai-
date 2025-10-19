@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+.tag-bubble {
+  animation: float 4s ease-in-out infinite;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.tag-bubble:nth-child(odd) { animation-delay: -2s; }
+.tag-bubble:nth-child(even) { animation-delay: -3.5s; }
