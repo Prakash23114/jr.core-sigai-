@@ -1,15 +1,87 @@
+/* stylelint-disable at-rule-no-unknown */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
 
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
+/* Tailwind classes are applied in App.jsx */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #000000;
+    cursor: none;
+    overflow-x: hidden;
 }
-.tag-bubble {
-  animation: float 4s ease-in-out infinite;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+/* Fluid aurora cursor style */
+#cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, 
+        rgba(217, 70, 239, 0.2),  /* Fuchsia */
+        rgba(139, 92, 246, 0.15), /* Violet */
+        rgba(59, 130, 246, 0.1),  /* Blue */
+        transparent 60%
+    );
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(100px);
+    z-index: -1;
+    /* Positioning is handled by React */
 }
-.tag-bubble:nth-child(odd) { animation-delay: -2s; }
-.tag-bubble:nth-child(even) { animation-delay: -3.5s; }
+
+.team-card {
+    perspective: 1000px;
+}
+
+.card-inner {
+    transition: transform 0.2s ease-out, box-shadow 0.3s ease-in-out;
+    transform-style: preserve-3d;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.card-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    padding: 2px;
+    background: linear-gradient(45deg, #00ffff, #1d69ff);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.team-card:hover .card-inner::before {
+    opacity: 0.7;
+}
+
+.card-image, .card-content {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease-out;
+}
+
+.card-active {
+    transform: scale(1.15) !important;
+    filter: blur(0) !important;
+    opacity: 1 !important;
+    z-index: 10;
+}
+.card-inactive {
+    transform: scale(0.95);
+    filter: blur(4px);
+    opacity: 0.5;
+}
+
+.card-hidden {
+    opacity: 0;
+    transform: translateY(30px);
+}
